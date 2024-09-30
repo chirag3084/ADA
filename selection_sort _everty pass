@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<time.h>
+
+void selectionSort(int n, int a[]) {
+    int i, j, min_idx, temp;
+    
+    for(i = 0; i < n-1; i++) {
+        // Find the minimum element in the unsorted part of the array
+        min_idx = i;
+        for(j = i+1; j < n; j++) {
+            if(a[j] < a[min_idx]) {
+                min_idx = j;
+            }
+        }
+        
+        // Swap the found minimum element with the first element of the unsorted part
+        if(min_idx != i) {
+            temp = a[i];
+            a[i] = a[min_idx];
+            a[min_idx] = temp;
+        }
+        
+        // Print the array after each pass
+        printf("Array after pass %d: ", i+1);
+        for(int k = 0; k < n; k++) {
+            printf("%d,", a[k]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n = 10;  // Reducing array size for clarity of output
+    int a[n];
+    int i;
+    double start, end;
+
+    // Initialize the array in descending order for worst-case scenario
+    for(i = 0; i < n; i++) {
+        a[i] = n - i;  // Array sorted in descending order (worst-case input)
+    }
+
+    // Measure sorting time
+    start = clock();
+    selectionSort(n, a);
+    end = clock();
+
+    // Calculate CPU time taken
+    double cpu_time = (double)((end - start) / CLOCKS_PER_SEC);
+
+    printf("\n");
+    printf("cpu time : %f", cpu_time);
+    return 0;
+}
