@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<time.h>
+
+void bubbleSort(int n, int a[]) {
+    int i, j, temp;
+    
+    for(i = 0; i < n-1; i++) {
+        // Perform one pass of Bubble Sort
+        for(j = 0; j < n-i-1; j++) {
+            if(a[j] > a[j+1]) {
+                // Swap adjacent elements if they are in the wrong order
+                temp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = temp;
+            }
+        }
+        
+        // Print the array after each pass
+        printf("Array after pass %d: ", i+1);
+        for(int k = 0; k < n; k++) {
+            printf("%d,", a[k]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n = 10;  // Reducing array size for clarity of output
+    int a[n];
+    int i;
+    double start, end;
+
+    // To demonstrate the worst-case scenario, fill the array in reverse order
+    for(i = 0; i < n; i++) {
+        a[i] = n - i;  // Array sorted in descending order (worst-case input)
+    }
+
+    start = clock();
+    bubbleSort(n, a);
+    end = clock();
+
+    double cpu_time = (double)((end - start) / CLOCKS_PER_SEC);
+
+    printf("\n");
+    printf("cpu time : %f", cpu_time);
+    return 0;
+}
